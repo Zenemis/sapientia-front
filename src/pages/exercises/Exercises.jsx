@@ -1,10 +1,11 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import MatDiag from './001-MatrixDiagonalization/MatDiag';
 
 function Exercises() {
     return (
         <Routes>
-            <Route path="/parent/subpage1" element={<div>letroll</div>} />
+            <Route path="/matrix-diagonalization" element={<MatDiag/>} />
         </Routes>
     );
 }
