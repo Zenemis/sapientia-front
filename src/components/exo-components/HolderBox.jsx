@@ -2,12 +2,14 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import './HolderBox.css';
 
-function HolderBox(content){
-    return <div className='HolderBox'>
+
+function HolderBox({content}){
+    const cont = <div>salut</div>;
+    return (<div className='HolderBox'>
         <Box>
-            <div></div>
+            {content}
         </Box>
-    </div>
+    </div>);
 }
 
 export default HolderBox;

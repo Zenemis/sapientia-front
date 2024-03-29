@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import StateTree from '../../../utils/stateTree';
-import Header from '../../../components/Header';
-import AnswerBox from '../../../components/exo-components/HolderBox';
+
+import ExoTemplate from '../ExoTemplate';
 
 function MatDiag(){
 
@@ -25,13 +25,11 @@ function MatDiag(){
 
     console.log(state);
 
-    return (
-    <div>
-        <Header/>
-        <AnswerBox answer={"saalut"}/>
-        <AnswerBox answer={"aurevoir"}/>
-    </div>
-    );
+    return <ExoTemplate 
+                question={"question"} 
+                answer={"answer"}
+                submit={"submit"}    
+            />
 }
 
 

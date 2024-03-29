@@ -1,0 +1,10 @@
+/* In your CSS file */
+.invisBox {
+  display: flex;
+  padding: 100px;
+  width: 85%;
+  margin: auto;
+  padding: 0px; /* equivalent to p: 2 */
+  margin-bottom: 30px;
+  justify-content: space-between;
+}
