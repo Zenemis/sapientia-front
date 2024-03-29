@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Header from '../../components/Header';
 
@@ -10,6 +10,11 @@ import './ExoTemplate.css';
 
 function ExoTemplate({question, answer, submit}){
 
+    const refreshPage = () => {
+        window.location.search += '&seed=42';
+        window.location.reload(false);
+    }
+
     return (
     <div>
         <Header/>
@@ -17,12 +22,15 @@ function ExoTemplate({question, answer, submit}){
         <HolderBox content={answer}/>
         <div className='invisBox'>
             <div style={{ flex: 1 }}>
-                {/* Bouton MUI pour la première colonne */}
-                <Button variant="contained" color="primary">Envoyer la réponse</Button>
+                <Button variant="contained" style={{ backgroundColor: '#537bee', color: 'white' }}>Envoyer la réponse</Button>
             </div>
             <div style={{ flex: 1, marginLeft: '10px', textAlign: "right" }}>
-                {/* Bouton MUI pour la deuxième colonne */}
-                <Button variant="contained" color="primary">Refaire l'exercice</Button>
+                <Button 
+                    variant="contained" 
+                    style={{ backgroundColor: '#7965dc', color: 'white' }}
+                    onClick={refreshPage}>
+                        Refaire l'exercice
+                </Button>
             </div>
         </div>
     </div>

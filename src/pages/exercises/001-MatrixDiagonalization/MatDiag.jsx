@@ -22,6 +22,8 @@ function MatDiag(){
     t_state2.addChild(3, false, []);
 
     const [state, setState] = useState(t_root);
+    const [searchParams, setSearchParams] = useSearchParams();
+    searchParams.get("seed");
 
     console.log(state);
 

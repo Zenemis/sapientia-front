@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Exercises from "./pages/exercises/Exercises";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+
 function App() {
   
     const config = {
