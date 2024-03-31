@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSearchParams } from "react-router-dom";
 import StateTree from '../../../utils/stateTree';
 
 import ExoTemplate from '../ExoTemplate';
