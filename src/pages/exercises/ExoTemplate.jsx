@@ -8,14 +8,14 @@ import { Button } from '@mui/material';
 
 import ButtonsBoxed from '../../components/exo-components/ButtonsBoxed';
 
-function ExoTemplate({question, answer, submit}){
+function ExoTemplate({question, answer, onSubmit, onRefresh}){
 
     return (
     <div>
         <Header/>
         <HolderBox content={question}/>
         <HolderBox content={answer}/>
-        <ButtonsBoxed/>
+        <ButtonsBoxed onSubmit={onSubmit} onRefresh={onRefresh}/>
     </div>
     );
 }

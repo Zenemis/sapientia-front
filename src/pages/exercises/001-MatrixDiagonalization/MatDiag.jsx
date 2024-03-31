@@ -28,10 +28,18 @@ function MatDiag(){
 
     console.log(state);
 
+    const onRefresh = (event) => {
+        if (event != undefined && event.target != undefined){
+            setSearchParams(event.target.value);
+        }
+        window.location.reload(false);
+    }
+
     return <ExoTemplate 
                 question={"question"} 
                 answer={"answer"}
                 submit={"submit"}    
+                onRefresh={onRefresh}
             />
 }
 
