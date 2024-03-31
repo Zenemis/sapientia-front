@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from "react-router-dom";
 import StateTree from '../../../utils/stateTree';
 
 import ExoTemplate from '../ExoTemplate';
+
+import { APICall } from '../../../utils/server';
 
 function MatDiag(){
 
@@ -22,11 +24,23 @@ function MatDiag(){
     t_state2.addChild(3, true, []);
     t_state2.addChild(3, false, []);
 
+
+    // State tree
     const [state, setState] = useState(t_root);
     const [searchParams, setSearchParams] = useSearchParams();
     searchParams.get("seed");
 
-    console.log(state);
+
+    // One-Shot API Call for exercise setup
+    useEffect(() => {
+        const res = APICall("exercises/matrix-diagonalization", 0);
+    }, []);
+
+
+    // Button calls
+    const onSubmit = () => {
+
+    };
 
     const onRefresh = (event) => {
         if (event != undefined && event.target != undefined){
@@ -38,7 +52,7 @@ function MatDiag(){
     return <ExoTemplate 
                 question={"question"} 
                 answer={"answer"}
-                submit={"submit"}    
+                submit={onSubmit}    
                 onRefresh={onRefresh}
             />
 }
