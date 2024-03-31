@@ -4,8 +4,6 @@ import Header from '../../components/Header';
 
 import HolderBox from '../../components/exo-components/HolderBox';
 
-import { Button } from '@mui/material';
-
 import ButtonsBoxed from '../../components/exo-components/ButtonsBoxed';
 
 function ExoTemplate({question, answer, onSubmit, onRefresh}){

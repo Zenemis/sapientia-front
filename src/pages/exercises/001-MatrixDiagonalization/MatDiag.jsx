@@ -4,6 +4,8 @@ import StateTree from '../../../utils/stateTree';
 
 import ExoTemplate from '../ExoTemplate';
 
+import Question from './Question';
+
 import { APICall } from '../../../utils/server';
 
 function MatDiag(){
@@ -50,7 +52,7 @@ function MatDiag(){
     }
 
     return <ExoTemplate 
-                question={"question"} 
+                question={<Question/>} 
                 answer={"answer"}
                 submit={onSubmit}    
                 onRefresh={onRefresh}

@@ -4,7 +4,6 @@ import './HolderBox.css';
 
 
 function HolderBox({content}){
-    const cont = <div>salut</div>;
     return (<div className='HolderBox'>
         <Box>
             {content}
