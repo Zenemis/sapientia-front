@@ -2,7 +2,9 @@ import React from "react";
 
 import { MathJax } from "better-react-mathjax";
 
-function Question({state, seed, matrix}){
+function Question({state, variables}){
+    const seed = variables["seed"];
+    const matrix = variables["matrix"];
     const enonce = `La matrice suivante est-elle diagonalisable ?`;
 
     return (

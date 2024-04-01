@@ -5,6 +5,7 @@ import StateTree from '../../../utils/stateTree';
 import ExoTemplate from '../ExoTemplate';
 
 import Question from './Question';
+import Answer from './Answer';
 
 import { APICall } from '../../../utils/server';
 
@@ -26,18 +27,28 @@ function MatDiag(){
     t_state2.addChild(3, true, []);
     t_state2.addChild(3, false, []);
 
-
     // State tree
     const [state, setState] = useState(t_root);
+
+
+    // State variables
     const [searchParams, setSearchParams] = useSearchParams();
     searchParams.get("seed");
-
+    const [variables, setVariables] = useState({"seed" : 0, "matrix" : ""});
+    const [userInput, setUserInput] = useState(null);
+    const [apiRes, setApiRes] = useState(null);
 
     // One-Shot API Call for exercise setup
     useEffect(() => {
-        const res = APICall("exercises/matrix-diagonalization", 0);
+        const res = APICall("exercises/matrix-diagonalization", {"step" : 0});
+        console.log(res);
     }, []);
 
+
+    // Modify userInput
+    const handleAnswer = (value) => {
+        setUserInput(value);
+    } 
 
     // Button calls
     const onSubmit = () => {
@@ -52,8 +63,8 @@ function MatDiag(){
     }
 
     return <ExoTemplate 
-                question={<Question/>} 
-                answer={"answer"}
+                question={<Question state={state} variables={variables}/>} 
+                answer={<Answer state={state} handleAnswer={handleAnswer}/>}
                 submit={onSubmit}    
                 onRefresh={onRefresh}
             />

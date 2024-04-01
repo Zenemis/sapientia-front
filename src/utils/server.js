@@ -3,13 +3,13 @@
 const serverIp = "https://141.94.220.34";
 const serverPort = "3000";
 
-async function APICall(url, data = {}) {
+async function APICall(url, data) {
     try {
         const response = await fetch(serverIp+":"+serverPort+"/"+url, {
             method: "POST", 
-            // mode: "cors", 
+            mode: "cors", 
             cache: "no-cache", 
-            // credentials: "same-origin",
+            credentials: "same-origin",
             headers: {
                 "Content-Type": "application/json",
             },
