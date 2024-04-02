@@ -34,15 +34,21 @@ function MatDiag(){
     // State variables
     const [searchParams, setSearchParams] = useSearchParams();
     searchParams.get("seed");
-    const [variables, setVariables] = useState({"seed" : 0, "matrix" : ""});
+    const [variables, setVariables] = useState({"seed" : 0, "matrix" : null});
     const [userInput, setUserInput] = useState(null);
     const [apiRes, setApiRes] = useState(null);
 
     // One-Shot API Call for exercise setup
     useEffect(() => {
-        const res = APICall("exercises/matrix-diagonalization", {"step" : 0});
-        console.log(res);
-    }, []);
+        const fetchData = async () => {
+            const response = await APICall("exercises/matrix-diagonalization", {"step" : 0});
+      
+            setVariables({"seed" : response.seed, "matrix" : response.matrix});
+        }
+      
+        fetchData()
+          .catch(console.error);;
+      }, [])
 
 
     // Modify userInput
