@@ -17,7 +17,7 @@ const EditableMath = ({ defaultText="", renderFunc, inputSize=30 }) => {
   };
 
   return (
-    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ display: 'inline-block' }}>
       {isHovered ? (
         <input
           type="text"
