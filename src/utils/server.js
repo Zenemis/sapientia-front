@@ -1,15 +1,13 @@
-
-
-const serverIp = "https://141.94.220.34";
+const serverIp = "https://api.learn-sapientia.com";
 const serverPort = "3000";
 
 async function APICall(url, data) {
     try {
-        const response = await fetch(serverIp+":"+serverPort+"/"+url, {
+        const response = await fetch(`${serverIp}:${serverPort}/${url}`, {
             method: "POST", 
-            mode: "cors", 
+            // mode: "cors", 
             cache: "no-cache", 
-            credentials: "same-origin",
+            // credentials: "same-origin",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -19,7 +17,7 @@ async function APICall(url, data) {
         });
 
         if (!response.ok) {
-            const message = `An error has occured: ${response.status}`;
+            const message = `An error has occurred: ${response.status}`;
             throw new Error(message);
         }
 
@@ -28,6 +26,6 @@ async function APICall(url, data) {
         console.log(error);
         return error;
     }
-  }
+}
 
-  export { APICall };
+export { APICall };
