@@ -1,11 +1,13 @@
 import React from 'react';
 import { Radio, RadioGroup, FormControlLabel } from '@mui/material';
 import EditableMath from '../../../components/EditableMath';
-import { UNSAFE_DataRouterContext } from 'react-router-dom';
 import { MathJax } from 'better-react-mathjax';
+import { isFractional } from '../../../utils/mathUtils';
+import { fracToLatex, numOrFracToLatex } from '../../../utils/latexUtils';
 
 function Answer({ state, handleAnswer }) {
-    let render;
+
+    let render = <div></div>;
     switch (state.id) {
         case 2:
             render = <div></div>;
@@ -30,12 +32,15 @@ function Answer({ state, handleAnswer }) {
             );
             break;
         case 0 :
-            const renderFunc = (text) => {
-                if (text == null || text == undefined) return <MathJax>{`!!!`}</MathJax>;
-                if (text == "") return <MathJax>{`!!!`}</MathJax>;
-                return <MathJax>{text}</MathJax>
-            };
-            render = <EditableMath defaultText={""} renderFunc={renderFunc}/>;
+            if (!(state.value && state.variants[0] == "oui")){
+                const renderFunc = (text) => {
+                    if (text == null || text == undefined) return <MathJax>{`$\\textcolor{red}{|!|}$`}</MathJax>;
+                    if (text == "") return <MathJax>{`$\\textcolor{blue}{?}$`}</MathJax>;
+                    if (isFractional(text)) return <MathJax>{`$\\textcolor{gray}{${numOrFracToLatex(text)}}$`}</MathJax>
+                    else return <MathJax>{`$\\textcolor{red}{!!}$`}</MathJax>;
+                };
+                render = <EditableMath defaultText={""} renderFunc={renderFunc}/>;
+            }
             break;
         default:
             render = <div></div>;
