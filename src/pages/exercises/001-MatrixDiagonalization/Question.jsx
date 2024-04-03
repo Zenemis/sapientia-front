@@ -8,7 +8,7 @@ function Question({state, variables}){
     const seed = variables["seed"];
     const matrix = variables["matrix"];
 
-    var res1;
+    var res1 = `\\;`;
     switch (state.id){
         case 0:
             res1 = `\\;`;
@@ -17,7 +17,13 @@ function Question({state, variables}){
             res1 = `\\textcolor{cyan}{mmh}`;
             break;
         case 2:
-            res1 = `\\textcolor{red}{mmh}`;
+            res1 = "";
+            var antivariant = (state.variants[0] == "oui") ? "non" : "oui";
+            if (state.value) {
+                res1 +=  `$\\textcolor{red}{\\cancel{${antivariant}}}$ `;
+                
+            } 
+            res1 += `\\textcolor{green}{${state.variants[0]}}`;
             break;
     }
 
