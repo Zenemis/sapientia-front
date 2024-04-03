@@ -9,6 +9,8 @@ import Answer from './Answer';
 
 import { APICall } from '../../../utils/server';
 
+const exoURL = "exercises/matrix-diagonalization";
+
 function MatDiag(){
 
     // State 0
@@ -41,24 +43,50 @@ function MatDiag(){
     // One-Shot API Call for exercise setup
     useEffect(() => {
         const fetchData = async () => {
-            const response = await APICall("exercises/matrix-diagonalization", {"step" : 0});
+            const response = await APICall(exoURL, {"step" : 0});
       
             setVariables({"seed" : response.seed, "matrix" : response.matrix});
+            setState(state.children[0]);
         }
       
         fetchData()
-          .catch(console.error);;
-      }, [])
+          .catch(console.error);
+      }, []);
+
+    // An APICall has been done
+    useEffect(() => {
+        console.log(apiRes);
+        switch (state.id){
+            case 1:
+                const evenId = (apiRes.value) ? 0 : 2;
+                const oddId = (state.variants[0] == "oui") ? 0 : 1;
+                setState(state.children[evenId+oddId]);
+                break;
+        }
+    }, [apiRes]);
 
 
     // Modify userInput
     const handleAnswer = (value) => {
-        setUserInput(value);
+        var tempInput = {"step" : state.id, 
+                    "seed" : parseInt(variables.seed)};
+        switch (state.id){
+            case 1:
+                tempInput["is_diag"] = (value == "Oui");
+                break;
+        }
+        setUserInput(tempInput);
     } 
 
     // Button calls
-    const onSubmit = () => {
-
+    const onSubmit = async () => {
+        try {
+            const response = await APICall(exoURL, userInput);
+            setApiRes(response);
+    
+        } catch (error) {
+            console.error("Error:", error);
+        }
     };
 
     const onRefresh = (event) => {
@@ -68,10 +96,11 @@ function MatDiag(){
         window.location.reload(false);
     }
 
+
     return <ExoTemplate 
                 question={<Question state={state} variables={variables}/>} 
                 answer={<Answer state={state} handleAnswer={handleAnswer}/>}
-                submit={onSubmit}    
+                onSubmit={onSubmit}    
                 onRefresh={onRefresh}
             />
 }
