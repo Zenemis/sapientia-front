@@ -23,7 +23,6 @@ async function APICall(url, data) {
 
         return response.json(); 
     } catch (error) {
-        console.log(error);
         return error;
     }
 }
