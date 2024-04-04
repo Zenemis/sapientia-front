@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-const EditableMath = ({ defaultText="", renderFunc, inputSize=30 }) => {
+const EditableMath = ({ defaultText="", renderFunc, handleInput, inputSize=30 }) => {
   const [text, setText] = useState(defaultText);
   const [isHovered, setIsHovered] = useState(false);
   const inputRef = useRef(null); // Ref to input element
@@ -14,6 +14,7 @@ const EditableMath = ({ defaultText="", renderFunc, inputSize=30 }) => {
 
   const handleMouseLeave = () => {
     setIsHovered(false);
+    handleInput(text);
   };
 
   const handleChange = (event) => {
@@ -31,7 +32,7 @@ const EditableMath = ({ defaultText="", renderFunc, inputSize=30 }) => {
           style={{ width:  `${inputSize}px` }}
         />
       ) : (
-        <div>{renderFunc(text)}</div>
+        <span>{renderFunc(text)}</span>
       )}
     </div>
   );

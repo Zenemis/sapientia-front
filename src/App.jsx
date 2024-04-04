@@ -8,9 +8,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 function App() {
   
     const config = {
-        loader: { load: ["[tex]/html", "[tex]/color"] },
+        loader: { load: ["[tex]/html", "[tex]/color", '[tex]/cancel'] },
         tex: {
-            packages: { "[+]": ["html", "color"] },
+            packages: { "[+]": ["html", "color", 'cancel'] },
             inlineMath: [
                 ["$", "$"],
                 ["\\(", "\\)"]

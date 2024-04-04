@@ -42,9 +42,12 @@ function MatDiag(){
 
     // One-Shot API Call for exercise setup
     useEffect(() => {
+        console.log("One shot call");
         const fetchData = async () => {
             const response = await APICall(exoURL, {"step" : 0});
       
+            console.log("Init res is ", response);
+
             setVariables({"seed" : response.seed, "matrix" : response.matrix});
             setState(state.children[0]);
         }
@@ -53,13 +56,14 @@ function MatDiag(){
           .catch(console.error);
       }, []);
 
+
     // An APICall has been done
     useEffect(() => {
-        console.log(apiRes);
+        console.log("API REs is ", apiRes);
         switch (state.id){
             case 1:
                 const evenId = (apiRes.value) ? 0 : 2;
-                const oddId = (state.variants[0] == "oui") ? 0 : 1;
+                const oddId = (apiRes.correction == "oui") ? 0 : 1;
                 setState(state.children[evenId+oddId]);
                 break;
         }

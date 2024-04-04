@@ -14,16 +14,16 @@ function Question({state, variables}){
             res1 = `\\;`;
             break;
         case 1:
-            res1 = `\\textcolor{cyan}{mmh}`;
+            res1 = `\\;`;
             break;
         case 2:
             res1 = "";
             var antivariant = (state.variants[0] == "oui") ? "non" : "oui";
-            if (state.value) {
-                res1 +=  `$\\textcolor{red}{\\cancel{${antivariant}}}$ `;
+            if (!(state.value)) {
+                res1 += `\\textcolor{red}{\\cancel{${antivariant}}} \\;`;
                 
             } 
-            res1 += `\\textcolor{green}{${state.variants[0]}}`;
+            res1 += `\\textcolor{green}{\\text{${state.variants[0]}}}`;
             break;
     }
 

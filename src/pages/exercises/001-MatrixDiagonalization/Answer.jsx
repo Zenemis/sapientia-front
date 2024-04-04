@@ -27,6 +27,17 @@ function RadioAnswer({handleAnswer}){
     </RadioGroup>);
 }
 
+
+function MathSentence ({ renderFunc}) {
+
+    return (
+    <MathJax>
+        <EditableMath renderFunc={renderFunc} handleInput={() => null} />
+    </MathJax>
+    );
+}
+
+
 function Answer({ state, handleAnswer }) {
 
     let render = <div></div>;
@@ -38,14 +49,14 @@ function Answer({ state, handleAnswer }) {
             render = <RadioAnswer handleAnswer={handleAnswer}/>;
             break;
         case 2 :
-            if (!(state.value && state.variants[0] == "oui")){
+            if ((state.value && state.variants[0] == "oui")){
                 const renderFunc = (text) => {
-                    if (text == null || text == undefined) return <MathJax>{`$\\textcolor{red}{|!|}$`}</MathJax>;
-                    if (text == "") return <MathJax>{`$\\textcolor{blue}{?}$`}</MathJax>;
-                    if (isFractional(text)) return <MathJax>{`$\\textcolor{gray}{${numOrFracToLatex(text)}}$`}</MathJax>
-                    else return <MathJax>{`$\\textcolor{red}{!!}$`}</MathJax>;
+                    if (text == null || text == undefined) return <span>{`$\\textcolor{red}{|!|}$`}</span>;
+                    if (text == "") return <span>{`$\\textcolor{blue}{?}$`}</span>;
+                    if (isFractional(text)) return <span>{`$\\textcolor{gray}{${numOrFracToLatex(text)}}$`}</span>
+                    else return <span>{`$\\textcolor{red}{!!}$`}</span>;
                 };
-                render = <EditableMath defaultText={""} renderFunc={renderFunc}/>;
+                render = <MathSentence renderFunc={renderFunc} />;
             }
             break;
         default:
