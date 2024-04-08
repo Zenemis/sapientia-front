@@ -27,18 +27,26 @@ function RadioAnswer({handleAnswer}){
     </RadioGroup>);
 }
 
-
-function MathSentence ({ renderFunc}) {
-
+function MathSentence ({ renderFunc }) {
     return (
-    <MathJax>
-        <EditableMath renderFunc={renderFunc} handleInput={() => null} />
-    </MathJax>
+      <div>
+        <MathJax>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span>{`$\\lambda = \\left( \\begin{matrix} \\\\ \\\\ \\; \\end{matrix} \\right. $`}</span>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <EditableMath renderFunc={renderFunc} handleInput={() => null} style={{ marginBottom: '5px' }} />
+              <EditableMath renderFunc={renderFunc} handleInput={() => null} style={{ marginBottom: '5px' }} />
+              <EditableMath renderFunc={renderFunc} handleInput={() => null} />
+            </div>
+          </div>
+        </MathJax>
+      </div>
     );
-}
-
+  }  
+  
 
 function Answer({ state, handleAnswer }) {
+    console.log('new render');
 
     let render = <div></div>;
     switch (state.id) {
@@ -57,6 +65,7 @@ function Answer({ state, handleAnswer }) {
                     else return <span>{`$\\textcolor{red}{!!}$`}</span>;
                 };
                 render = <MathSentence renderFunc={renderFunc} />;
+                console.log('new render : ', render);
             }
             break;
         default:

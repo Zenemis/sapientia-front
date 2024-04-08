@@ -1,6 +1,7 @@
+import { MathJax } from 'better-react-mathjax';
 import React, { useState, useRef } from 'react';
 
-const EditableMath = ({ defaultText="", renderFunc, handleInput, inputSize=30 }) => {
+const EditableMath = ({ defaultText = "", renderFunc, handleInput, inputSize = 30, style }) => {
   const [text, setText] = useState(defaultText);
   const [isHovered, setIsHovered] = useState(false);
   const inputRef = useRef(null); // Ref to input element
@@ -14,7 +15,7 @@ const EditableMath = ({ defaultText="", renderFunc, handleInput, inputSize=30 })
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    handleInput(text);
+    handleInput(text); // Call handleInput to update parent with input text
   };
 
   const handleChange = (event) => {
@@ -22,19 +23,19 @@ const EditableMath = ({ defaultText="", renderFunc, handleInput, inputSize=30 })
   };
 
   return (
-    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ display: 'inline-block' }}>
+    <span onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ display: 'inline-block', ...style }}>
       {isHovered ? (
         <input
-          ref={inputRef} // Assign ref to input
+          ref={inputRef}
           type="text"
           value={text}
           onChange={handleChange}
-          style={{ width:  `${inputSize}px` }}
+          style={{ width: `${inputSize}px` }}
         />
       ) : (
-        <span>{renderFunc(text)}</span>
+        <MathJax>{renderFunc(text)}</MathJax>
       )}
-    </div>
+    </span>
   );
 };
 
