@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Radio, RadioGroup, FormControlLabel } from '@mui/material';
 import EditableMath from '../../../components/EditableMath';
 import { MathJax } from 'better-react-mathjax';
@@ -28,23 +28,46 @@ function RadioAnswer({handleAnswer}){
 }
 
 function MathSentence ({ renderFunc }) {
+    const baseState = {
+    "lambdas" : [0,0,0],
+    "vect" :[
+        [[0,0], [0,0], [0,0]], 
+        [[0,0], [0,0], [0,0]], 
+        [[0,0], [0,0], [0,0]]
+    ]};
+    const [answer, setAnswer] = useState(baseState);
 
-    const StackedEditable = () => {
+    const StackedEditable = (index) => {
+        const handleInput = (newValue) => {
+            setAnswer(prevState => ({
+                ...prevState,
+                vect: prevState.vect.map((row, i) => {
+                    if (i === index) {
+                        return newValue; 
+                    }
+                    return row;
+                })
+            }));
+        };
+
         return (<div style={{ display: 'flex', flexDirection: 'column' }}>
-              <EditableMath renderFunc={renderFunc} handleInput={() => null} style={{ marginBottom: '5px' }} />
-              <EditableMath renderFunc={renderFunc} handleInput={() => null} style={{ marginBottom: '5px' }} />
-              <EditableMath renderFunc={renderFunc} handleInput={() => null} />
+              <EditableMath renderFunc={renderFunc} handleInput={handleInput} style={{ marginBottom: '5px' }} />
+              <EditableMath renderFunc={renderFunc} handleInput={handleInput} style={{ marginBottom: '5px' }} />
+              <EditableMath renderFunc={renderFunc} handleInput={handleInput} />
             </div>);
     };
 
-    const Lambda = () => {
+    const Lambda = (index) => {
+        const handleInput = () => {
+
+        };
         return (<EditableMath renderFunc={renderFunc} handleInput={() => null} />);
     };
 
-    const OneAnswer = () => {
+    const OneAnswer = ({i}) => {
         return (<div style={{ display: 'flex', alignItems: 'center' }}>
-            <span>{`$\\lambda_0 =$`}</span> <Lambda/> <span>{`$,\\; \\vec{v_0} = ${openMatrix}$`}</span>
-            <StackedEditable/>
+            <span>{`$\\lambda_${i} =$`}</span> <Lambda index={i}/> <span>{`$,\\; \\vec{v_${i}} = ${openMatrix}$`}</span>
+            <StackedEditable index={i}/>
             <span>{`$ ${closeMatrix} $`}</span>
         </div>);
     };
@@ -56,9 +79,9 @@ function MathSentence ({ renderFunc }) {
     <div style={{ width: '80%'}}>
         <MathJax>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <OneAnswer/>
-            <OneAnswer/>
-            <OneAnswer/>
+            <OneAnswer i={0}/>
+            <OneAnswer i={1}/>
+            <OneAnswer i={2}/>
           </div>
         </MathJax>
       </div>
