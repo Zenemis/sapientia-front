@@ -28,16 +28,37 @@ function RadioAnswer({handleAnswer}){
 }
 
 function MathSentence ({ renderFunc }) {
-    return (
-      <div>
-        <MathJax>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span>{`$\\lambda = \\left( \\begin{matrix} \\\\ \\\\ \\; \\end{matrix} \\right. $`}</span>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+
+    const StackedEditable = () => {
+        return (<div style={{ display: 'flex', flexDirection: 'column' }}>
               <EditableMath renderFunc={renderFunc} handleInput={() => null} style={{ marginBottom: '5px' }} />
               <EditableMath renderFunc={renderFunc} handleInput={() => null} style={{ marginBottom: '5px' }} />
               <EditableMath renderFunc={renderFunc} handleInput={() => null} />
-            </div>
+            </div>);
+    };
+
+    const Lambda = () => {
+        return (<EditableMath renderFunc={renderFunc} handleInput={() => null} />);
+    };
+
+    const OneAnswer = () => {
+        return (<div style={{ display: 'flex', alignItems: 'center' }}>
+            <span>{`$\\lambda_0 =$`}</span> <Lambda/> <span>{`$,\\; \\vec{v_0} = ${openMatrix}$`}</span>
+            <StackedEditable/>
+            <span>{`$ ${closeMatrix} $`}</span>
+        </div>);
+    };
+
+    const openMatrix = "\\left( \\begin{matrix} \\\\ \\\\ \\; \\end{matrix} \\right.";
+    const closeMatrix = "\\left. \\begin{matrix} \\\\ \\\\ \\; \\end{matrix} \\right)";
+
+    return (
+    <div style={{ width: '80%'}}>
+        <MathJax>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <OneAnswer/>
+            <OneAnswer/>
+            <OneAnswer/>
           </div>
         </MathJax>
       </div>
